@@ -1,0 +1,83 @@
+﻿@typeparam TModel
+@inject GenericFormService GenericFormService
+@inject TabBlazor.Services.IModalService _modalService;
+
+@using System.Configuration
+@using System.Collections.Generic
+@using System.ComponentModel
+@using System.ComponentModel.DataAnnotations
+@using System.Reflection
+@using Humanizer
+@using KingTech.Web.FormGenerator.Data
+@using KingTech.Web.FormGenerator.Areas.GenericForm
+@using Microsoft.AspNetCore.Mvc
+@using Microsoft.Extensions.Configuration
+
+@if (!string.IsNullOrWhiteSpace(Description))
+{
+    <div class="genericform-header">
+        <h2>@Description</h2>
+    </div>
+}
+
+<EditForm Model="Data" OnSubmit="@FormSubmitted">
+
+    @if (Errors?.Any() ?? false)
+    {
+        <div class="alert alert-danger" role="alert">
+            <ul>
+                @foreach (var error in Errors)
+                {
+                    <li>@error</li>
+                }
+            </ul>
+        </div>
+    }
+
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
+    <fieldset>
+        <GenericFormFields Model="Data">
+
+            <FieldTemplate Context="field">
+                @if (field.PropertyType == typeof(bool))
+                {
+                    <div class="form-group">
+                        <div class="form-check">
+                            @field.EditorTemplate
+                            <label for="@field.EditorId" class="form-check-label">
+                                @field.DisplayName.Humanize() 
+                                @if (!string.IsNullOrWhiteSpace(field.Description))
+                                {
+                                    <Tooltip Text="@field.Description">
+                                        <Icon Elements="@Icons.Icons.Info_circle" Size="16"></Icon>
+                                    </Tooltip>
+                                }
+                            </label>
+                        </div>
+                        @field.FieldValidationTemplate
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group">
+                        <label for="@field.EditorId">
+                            @field.DisplayName.Humanize():
+                            @if (!string.IsNullOrWhiteSpace(field.Description))
+                            {
+                                <Tooltip Text="@field.Description">
+                                    <Icon Elements="@Icons.Icons.Info_circle" Size="17"></Icon>
+                                </Tooltip>
+                            }
+                        </label>
+                        @field.EditorTemplate
+                        @field.FieldValidationTemplate
+                    </div>
+                }
+            </FieldTemplate>
+        </GenericFormFields>
+        <div class="genericform-buttons">
+            <button class="btn btn-primary" type="submit">Save</button>
+        </div>
+    </fieldset>
+</EditForm>

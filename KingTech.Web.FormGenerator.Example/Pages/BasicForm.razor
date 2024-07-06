@@ -1,0 +1,94 @@
+﻿@page "/basic"
+@using KingTech.Web.FormGenerator.Areas
+@using KingTech.Web.FormGenerator.Abstract
+@using TabBlazor
+@using TabBlazor.Services
+@inject ToastService ToastService
+
+
+<h1>Basic form</h1>
+
+The form below contains inputs based on the <b>BasicData</b> class.
+
+<Tabs>
+    <Tab Title="Form">
+        <GenericForm Data="FormData" OnSubmitAsync="SubmitForm"></GenericForm> 
+    </Tab>
+    <Tab Title="Code">
+        <pre>
+            <code>
+                [FormInfo("Basic example data")]
+                public class BasicData
+                {
+                    [FormFieldInfo("The current date.")]
+                    public DateOnly Date { get; set; }
+
+                    [FormFieldInfo("An integer field representing temperature.", "21")]
+                    public int TemperatureC { get; set; }
+
+                    [FormFieldInfo("An empty string (text) field with example content.", "Some example text.")]
+                    public string? Summary { get; set; }
+
+                    [FormFieldInfo("A string (text) field that already contains some data.")]
+                    public string? Region { get; set; } = "Amsterdam";
+
+                    [FormFieldInfo("A boolean field.")]
+                    public bool Enabled { get; set; }
+                }
+            </code>
+        </pre>
+    </Tab>
+</Tabs>
+
+
+@code {
+    public BasicData FormData;
+
+    /// <summary>
+    /// Handle form submit.
+    /// </summary>
+    /// <param name="userInput">Data submitted by user.</param>
+    /// <returns>List of errors if data is invalid.</returns>
+    internal async Task<IList<string>> SubmitForm(BasicData userInput)
+    {
+        await ToastService.AddToastAsync(new ToastModel("Form submitted", "", 
+            $"On {userInput.Date.ToString()} it will be {userInput.TemperatureC} degrees in {userInput.Region}. Summary: {userInput.Summary}.", new ToastOptions { Delay = 5, ShowHeader = true }));
+        return new List<string>();
+    }
+
+    /// <summary>
+    /// This method is called upon page load.
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
+    {
+        FormData = new(){Date = DateOnly.FromDateTime(DateTime.Now)};
+    }
+
+
+    /// <summary>
+    /// Class containing basic example data.
+    /// </summary>
+    [FormInfo("Basic example data")]
+    public class BasicData
+    {
+        [FormFieldInfo("The current date.")]
+        public DateOnly Date { get; set; }
+
+        [FormFieldInfo("An integer field representing temperature.", "21")]
+
+        public int TemperatureC { get; set; }
+        
+        [FormFieldInfo("An empty string (text) field with example content.", "Some example text.")]
+
+        public string? Summary { get; set; }
+
+        [FormFieldInfo("A string (text) field that already contains some data.")]
+
+        public string? Region { get; set; } = "Amsterdam";
+
+        [FormFieldInfo("A boolean field.")]
+
+        public bool Enabled { get; set; }
+    }
+}

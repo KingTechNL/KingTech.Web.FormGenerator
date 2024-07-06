@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+	    <TargetFrameworks>net8.0</TargetFrameworks>
+	    <RootNamespace>$(MSBuildProjectName.Replace(" ", "_").Replace(".NuGet",""))</RootNamespace>
+	    <PackageId>$(MSBuildProjectName.Replace(" ", "_").Replace(".NuGet",""))</PackageId>
+	    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+	    <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+	    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+	    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+	    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<GeneratedMSBuildEditorConfigFile>$(MSBuildProjectName).GeneratedMSBuildEditorConfig.editorconfig</GeneratedMSBuildEditorConfigFile>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|standard2.0|AnyCPU'">
+		<DocumentationFile>KingTech.Web.FormGenerator.Abstract.xml</DocumentationFile>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.1|AnyCPU'">
+		<DocumentationFile>KingTech.Web.FormGenerator.Abstract.xml</DocumentationFile>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net5.0|AnyCPU'">
+		<DocumentationFile>KingTech.Web.FormGenerator.Abstract.xml</DocumentationFile>
+	</PropertyGroup>
+</Project>

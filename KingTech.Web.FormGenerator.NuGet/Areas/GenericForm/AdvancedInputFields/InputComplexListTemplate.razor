@@ -1,0 +1,47 @@
+﻿@typeparam TModel where TModel : new()
+@using TabBlazor
+@using Humanizer
+@using Icons
+@using System.Transactions
+@using System.Reflection
+@using KingTech.Web.FormGenerator.Data
+@inject TabBlazor.Services.TablerService _tablerService;
+@inject TabBlazor.Services.IModalService _modalService;
+@inject GenericFormService GenericFormService
+
+
+<Table Item="TModel" Items="Items" PageSize="@MaxAmount" OnItemEdited="OnItemEdit" Hover Responsive ShowHeader="false">
+    
+    <ChildContent>
+        @foreach (var field in GetModelFields(SetupType))
+        {
+            <Column Item="TModel" Title="@field.Name">
+                <Template>
+                    @if (FormFieldsScanner.IsFieldActive(field, context, typeof(TModel)))
+                    {
+                        <p>@field.GetValue(context)</p>
+                    }
+                </Template>
+            </Column>
+        } 
+                
+        <Column Item="TModel" Title="" ActionColumn Width="28px">
+            <Template>
+                <span @onclick="(() => OnItemEdit(context))" @onclick:stopPropagation class="edit-icon">
+                    <Icon Size="18" Elements="@Icons.Pencil"/>
+                </span>
+            </Template>
+        </Column>
+        <Column Item="TModel" Title="" ActionColumn Width="28px">
+            <Template>
+                <span @onclick="(() => OnItemDelete(context))" @onclick:stopPropagation class="delete-icon">
+                    <Icon Size="18" Elements="@Icons.Trash"/>
+                </span>
+            </Template>
+        </Column>
+    </ChildContent>
+
+</Table>
+<div class="complex-input-list-button">
+    <button class="btn btn-primary" type="Button" @onclick="@AddItem"><Icon Elements="@Icons.Plus" Size="18"></Icon> Add new</button>
+</div>

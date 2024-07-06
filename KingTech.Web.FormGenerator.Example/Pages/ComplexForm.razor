@@ -1,0 +1,159 @@
+﻿@page "/complex"
+@using KingTech.Web.FormGenerator.Areas
+@using TabBlazor.Services
+@using TabBlazor
+@using KingTech.Web.FormGenerator.Abstract
+@inject ToastService ToastService
+
+
+<h1>Complex form</h1>
+
+The form below contains inputs based on the <b>ComplexData</b> class.
+
+<Tabs>
+    <Tab Title="Form">
+        <GenericForm Data="FormData" OnSubmitAsync="SubmitForm"></GenericForm> 
+    </Tab>
+    <Tab Title="Code">
+        <pre>
+            <code>
+                public class ComplexData
+                {
+                    [FormFieldInfo("Shipping date.")]
+                    public DateOnly Date { get; set; }
+
+                    [FormFieldInfo("The destination of this package.")]
+
+                    public string Destination { get; set; }
+
+                    [FormFieldInfo("The dimensions of the package.")]
+
+                    public Dimensions Dimensions { get; set; }
+
+                    [FormFieldInfo("The contents of the package.")]
+
+                    public List[Content] Contents { get; set; }
+
+                    [ReadOnlyField]
+                    public double Weight
+                    {
+                        get => Contents?.Sum(c => c.Weight) ?? 0;
+                        set{}
+                    }
+
+                }
+
+                [FormInfo("Dimensions of a physical object")]
+                public class Dimensions
+                {
+                    [FormFieldInfo("The width of the object, in millimeters.")]
+                    public double Width { get; set; }
+                    [FormFieldInfo("The length of the object, in millimeters.")]
+                    public double Length { get; set; }
+                    [FormFieldInfo("The height of the object, in millimeters.")]
+                    public double Height { get; set; }
+
+                    public override string ToString() => $"{Length}x{Width}x{Height}";
+                }
+
+                [FormInfo("Contents of a package")]
+                public class Content
+                {
+                    [FormFieldInfo("The name of the item.", "socks")]
+                    public string Item { get; set; }
+                    [FormFieldInfo("The physical weight of the item, in grams.")]
+                    public double Weight { get; set; }
+                }
+            </code>
+        </pre>
+    </Tab>
+</Tabs>
+
+
+@code {
+    
+    public ComplexData FormData;
+
+    /// <summary>
+    /// Handle form submit.
+    /// </summary>
+    /// <param name="userInput">Data submitted by user.</param>
+    /// <returns>List of errors if data is invalid.</returns>
+    internal async Task<IList<string>> SubmitForm(ComplexData userInput)
+    {
+        await ToastService.AddToastAsync(new ToastModel("Form submitted", "",
+            $"{userInput.Dimensions} package bound for {userInput.Destination} containing {userInput.Contents?.Count ?? 0} items with a total weight of {userInput.Weight}gr.", new ToastOptions { Delay = 5, ShowHeader = true }));
+        return new List<string>();
+    }
+
+    /// <summary>
+    /// This method is called upon page load.
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
+    {
+        FormData = new() { 
+            Date = DateOnly.FromDateTime(DateTime.Now), 
+            Dimensions = new Dimensions(){Height = 70, Width = 320, Length = 200},
+            Contents = new List<Content>()
+        {
+            new Content(){Item = "Socks", Weight = 9},
+            new Content(){Item = "Pants", Weight = 43},
+            new Content(){Item = "Pants", Weight = 48},
+            new Content(){Item = "Shirt", Weight = 31},
+        }};
+    }
+
+
+    /// <summary>
+    /// Class containing complex example data.
+    /// </summary>
+    [FormInfo("Complex data structure")]
+    public class ComplexData
+    {
+        [FormFieldInfo("Shipping date.")]
+        public DateOnly Date { get; set; }
+
+        [FormFieldInfo("The destination of this package.")]
+
+        public string Destination { get; set; }
+
+        [FormFieldInfo("The dimensions of the package.")]
+
+        public Dimensions Dimensions { get; set; }
+
+        [FormFieldInfo("The contents of the package.")]
+
+        public List<Content> Contents { get; set; }
+
+        [ReadOnlyField]
+        public double Weight
+        {
+            get => Contents?.Sum(c => c.Weight) ?? 0;
+            set{}
+        }
+
+    }
+
+    [FormInfo("Dimensions of a physical object")]
+    public class Dimensions
+    {
+        [FormFieldInfo("The width of the object, in millimeters.")]
+        public double Width { get; set; }
+        [FormFieldInfo("The length of the object, in millimeters.")]
+        public double Length { get; set; }
+        [FormFieldInfo("The height of the object, in millimeters.")]
+        public double Height { get; set; }
+
+        public override string ToString() => $"{Length}x{Width}x{Height}";
+    }
+
+    [FormInfo("Contents of a package")]
+    public class Content
+    {
+        [FormFieldInfo("The name of the item.", "socks")]
+        public string Item { get; set; }
+        [FormFieldInfo("The physical weight of the item, in grams.")]
+        public double Weight { get; set; }
+    }
+}

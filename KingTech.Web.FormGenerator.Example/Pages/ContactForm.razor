@@ -1,0 +1,100 @@
+﻿@page "/contact"
+@using KingTech.Web.FormGenerator.Areas
+@using KingTech.Web.FormGenerator.Abstract
+@using TabBlazor
+@using TabBlazor.Services
+@using System.ComponentModel.DataAnnotations
+@inject ToastService ToastService
+
+
+<h1>Basic form</h1>
+
+The form below shows an example use-case for the FormGenerator.
+
+<Tabs>
+    <Tab Title="Form">
+        <GenericForm Data="ContactFormData" OnSubmitAsync="SubmitForm"></GenericForm>
+    </Tab>
+    <Tab Title="Code">
+        <pre>
+            <code>
+                [FormInfo("Let us know what you think")]
+                public class ContactData
+                {
+                    [FormFieldInfo("", "Your name")]
+                    public string Name { get; set; }
+
+                    [FormFieldInfo("The email address on which we can contact you.")]
+                    [DataType(DataType.EmailAddress)]
+                    public string EmailAddress { get; set; }
+
+                    [FormFieldInfo("The topic that describes your message best.")]
+                    public ContactTopic Topic { get; set; }
+
+                    [FormFieldInfo("The message you want to mail us.", "your message")]
+                    [BigField]
+                    public string Message { get; set; }
+                }
+
+                public enum ContactTopic
+                {
+                    BUG,
+                    FEATURE,
+                    OTHER
+                }
+            </code>
+        </pre>
+    </Tab>
+</Tabs>
+
+
+@code {
+    public ContactData ContactFormData;
+
+    /// <summary>
+    /// Handle form submit.
+    /// </summary>
+    /// <param name="userInput">Data submitted by user.</param>
+    /// <returns>List of errors if data is invalid.</returns>
+    internal async Task<IList<string>> SubmitForm(ContactData userInput)
+    {
+        await ToastService.AddToastAsync(new ToastModel("Form submitted", "", 
+            $"{userInput.Name} sent a message about a {userInput.Topic}. We will respond to {userInput.EmailAddress}", new ToastOptions { Delay = 5, ShowHeader = true }));
+        return new List<string>();
+    }
+
+    /// <summary>
+    /// This method is called upon page load.
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
+    {
+        ContactFormData = new();
+    }
+
+
+    [FormInfo("Let us know what you think")]
+    public class ContactData
+    {
+        [FormFieldInfo("", "Your name")]
+        public string Name { get; set; }
+
+        [FormFieldInfo("The email address on which we can contact you.")]
+        [DataType(DataType.EmailAddress)]
+        public string EmailAddress { get; set; }
+
+        [FormFieldInfo("The topic that describes your message best.")]
+        public ContactTopic Topic { get; set; }
+
+        [FormFieldInfo("The message you want to mail us.", "your message")]
+        [BigField]
+        public string Message { get; set; }
+    }
+
+    public enum ContactTopic
+    {
+        BUG,
+        FEATURE,
+        OTHER
+    }
+}

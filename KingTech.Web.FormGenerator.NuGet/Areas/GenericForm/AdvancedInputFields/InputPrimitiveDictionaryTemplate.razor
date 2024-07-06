@@ -1,0 +1,26 @@
+﻿@typeparam TKey 
+@typeparam TValue
+@using TabBlazor
+@using Humanizer
+@using Icons
+@using System.Transactions
+@inject TabBlazor.Services.TablerService _tablerService;
+@inject TabBlazor.Services.IModalService _modalService;
+
+<Table Item="ItemWrapper<TKey, TValue>" Items="_wrappedItems" PageSize="@MaxAmount" AddItemFactory="AddItem" OnItemAdded="OnItemAdd" Hover Responsive ShowHeader="false" ShowTableHeader="false">
+    
+    <ChildContent>
+        <Column Item="ItemWrapper<TKey, TValue>" Property="e=>e.Key" Title="@Title.Singularize()">
+            <Template>
+                <input type="text" class="form-control" @bind-value="@context.Key"  @bind-value:event="oninput" @onchange="() => OnItemEdit(context)"/>
+            </Template>
+        </Column>
+
+        <Column Item="ItemWrapper<TKey, TValue>" Property="e=>e.Value" Title="@Title.Singularize()">
+            <Template>
+                <input type="text" class="form-control" @bind-value="@context.Value"  @bind-value:event="oninput" @onchange="() => OnItemEdit(context)"/>
+            </Template>
+        </Column>
+    </ChildContent>
+
+</Table>

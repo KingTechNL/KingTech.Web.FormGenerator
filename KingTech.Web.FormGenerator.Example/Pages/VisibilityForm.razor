@@ -1,0 +1,100 @@
+﻿@page "/visibility"
+@using KingTech.Web.FormGenerator.Areas
+@using KingTech.Web.FormGenerator.Abstract
+@using KingTech.Web.FormGenerator.Data
+@using TabBlazor
+@using TabBlazor.Services
+@inject ToastService ToastService
+@inject GenericFormService GenericFormService
+
+
+<h1>Basic form</h1>
+
+The form below contains inputs based on the <b>VisibilityData</b> class.<br/>
+The visibility mode can be change with button below:
+<br/>
+<Checkbox Label="Advanced mode" @bind-Value="AdvancedMode" Changed="ToggleVisibility" Switch/>
+<br />
+<Tabs>
+    <Tab Title="Form">
+        <GenericForm Data="FormData" OnSubmitAsync="SubmitForm"></GenericForm> 
+    </Tab>
+    <Tab Title="Code">
+        <pre>
+            <code>
+                [FormInfo("Example data")]
+                public class VisibilityData
+                {
+                    [FormFieldInfo("This field should be visible for anyone.")]
+                    public string PublicData { get; set; }
+
+                    [FormFieldInfo("This field should only be visible to those with the right permissions.", mode:EVisibilityMode.Advanced)]
+
+                    public string PrivateData { get; set; }
+
+                    [FormFieldInfo("This field should never be visible", mode:EVisibilityMode.Never)]
+
+                    public string InvisibleData { get; set; }
+
+                    [FormFieldInfo("This field should not be editable.")]
+                    [ReadOnlyField]
+
+                    public string ReadOnlyData { get; set; }
+                }
+            </code>
+        </pre>
+    </Tab>
+</Tabs>
+
+
+@code {
+    public VisibilityData FormData;
+    internal bool AdvancedMode;
+
+    /// <summary>
+    /// Handle form submit.
+    /// </summary>
+    /// <param name="userInput">Data submitted by user.</param>
+    /// <returns>List of errors if data is invalid.</returns>
+    internal async Task<IList<string>> SubmitForm(VisibilityData userInput)
+    {
+        await ToastService.AddToastAsync(new ToastModel("Form submitted", "", 
+            $"Form was successfully submitted.", new ToastOptions { Delay = 5, ShowHeader = true }));
+        return new List<string>();
+    }
+
+    internal void ToggleVisibility() => GenericFormService.SetVisibilityMode(AdvancedMode ? EVisibilityMode.Advanced : EVisibilityMode.Basic);
+
+    /// <summary>
+    /// This method is called upon page load.
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
+    {
+        FormData = new();
+    }
+
+
+    /// <summary>
+    /// Class containing basic example data.
+    /// </summary>
+    [FormInfo("Example data")]
+    public class VisibilityData
+    {
+        [FormFieldInfo("This field should be visible for anyone.")]
+        public string PublicData { get; set; }
+
+        [FormFieldInfo("This field should only be visible to those with the right permissions.", mode:EVisibilityMode.Advanced)]
+
+        public string PrivateData { get; set; }
+        
+        [FormFieldInfo("This field should never be visible", mode:EVisibilityMode.Never)]
+
+        public string InvisibleData { get; set; }
+
+        [FormFieldInfo("This field should not be editable.")]
+        [ReadOnlyField]
+
+        public string ReadOnlyData { get; set; }
+    }
+}

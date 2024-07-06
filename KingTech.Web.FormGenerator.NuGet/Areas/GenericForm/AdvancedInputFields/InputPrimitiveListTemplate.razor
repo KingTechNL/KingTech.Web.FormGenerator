@@ -1,0 +1,19 @@
+﻿@typeparam TModel
+@using TabBlazor
+@using Humanizer
+@using Icons
+@using System.Transactions
+@inject TabBlazor.Services.TablerService _tablerService;
+@inject TabBlazor.Services.IModalService _modalService;
+
+<Table Item="ItemWrapper<TModel>" Items="_wrappedItems" PageSize="@MaxAmount" AddItemFactory="AddItem" OnItemAdded="OnItemAdd" Hover Responsive ShowHeader="false" ShowTableHeader="false">
+    
+    <ChildContent>
+        <Column Item="ItemWrapper<TModel>" Property="e=>e.Item" Title="@Title.Singularize()">
+            <Template>
+                <input type="text" class="form-control" @bind-value="@context.Item"  @bind-value:event="oninput" @onchange="() => OnItemEdit(context)"/>
+            </Template>
+        </Column>
+    </ChildContent>
+
+</Table>

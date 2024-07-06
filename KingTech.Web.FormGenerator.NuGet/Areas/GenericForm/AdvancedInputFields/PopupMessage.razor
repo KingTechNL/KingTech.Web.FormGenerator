@@ -1,0 +1,26 @@
+﻿@inject IModalService _modalService
+
+<strong>@Message</strong>
+
+@if (Errors?.Any() ?? false)
+{
+    <div class="alert alert-danger" role="alert">
+        <ul>
+            @foreach (var error in Errors)
+            {
+                <li>@error</li>
+            }
+        </ul>
+    </div>
+}
+
+<hr>
+
+@if (!string.IsNullOrWhiteSpace(CancelButton))
+{
+    <button class="btn btn-secondary" type="button" @onclick="Cancel">@CancelButton</button>
+}
+@if (!string.IsNullOrWhiteSpace(ConfirmButton))
+{
+    <button class="btn btn-primary" type="button" @onclick="Confirm">@ConfirmButton</button>
+}

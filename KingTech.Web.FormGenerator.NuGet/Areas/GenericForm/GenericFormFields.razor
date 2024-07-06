@@ -1,0 +1,24 @@
+﻿@using KingTech.Web.FormGenerator.Data
+@typeparam TModel
+@inject GenericFormService GenericFormService;
+
+@if (fields != null)
+{
+    foreach (var field in fields.OrderBy(p => p.DisplayOrder)) 
+    {
+        if(SetupType < field.Mode)
+            continue;
+        if(FieldTemplate != null)
+        {
+            @FieldTemplate(field)
+        }
+        else
+        {
+            <div>
+                <label for="@field.EditorId">@field.DisplayName</label>
+                @field.EditorTemplate
+                @field.FieldValidationTemplate
+            </div>
+        }            
+    }
+}

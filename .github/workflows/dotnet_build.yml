@@ -1,0 +1,35 @@
+name: .NET build pipeline
+
+# Triggers
+on:
+  push:
+    branches: [ main, development, features/example-projects ]
+  pull_request:
+    branches: [ main, development ]
+
+# Set environment variables
+#env:
+#  TEST_OUTPUT: "test-results.trx"
+
+#: Jobs to execute
+jobs:
+  ## Build all projects
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    ### Checkout repo
+    - uses: actions/checkout@v3
+      with: 
+        fetch-depth: 0
+
+    ### Build and publish NuGet packages to NuGet.org and docker image to dockerhub
+    - name: main action
+      if: success()
+      uses: kingtechnl/githubactions/base-action@main
+      with:
+        docker_registry_username: "${{ secrets.DOCKERHUB_USERNAME }}"
+        docker_registry_password: "${{ secrets.DOCKERHUB_TOKEN }}"
+        docker_file: "Dockerfile"
+        docker_image_name: "kingtech.web.formgenerator.example"
+        nuget_api_key: "${{ secrets.NUGETORG_TOKEN }}"

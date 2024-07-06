@@ -1,0 +1,23 @@
+﻿@typeparam TModel where TModel : new()
+@using TabBlazor
+@using Humanizer
+@using Icons
+@using System.Transactions
+@inject TabBlazor.Services.TablerService _tablerService;
+@inject TabBlazor.Services.IModalService _modalService;
+
+<div class="row">
+    <div class="col col-md-10">
+        <input class="form-control" type="text" value="@(Item?.ToString() ?? "")" readonly disabled/>
+    </div>
+    <div class="col col-md-1">
+        @if (Item == null)
+        {
+            <button class="btn btn-primary" type="button" @onclick="@AddItem"><Icon Elements="@Icons.Plus" Size="18"></Icon></button>
+        }
+        else
+        {
+            <button class="btn btn-primary" type="button" @onclick="() => OnItemEdit(Item)"><Icon Elements="@Icons.Pencil" Size="18"></Icon></button>
+        }
+    </div>
+</div>

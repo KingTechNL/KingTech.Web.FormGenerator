@@ -1,0 +1,40 @@
+﻿@typeparam TKey        where TKey : new()
+@typeparam TValue      where TValue : new()
+@using TabBlazor
+@using Humanizer
+@using Icons
+@using System.Transactions
+@inject TabBlazor.Services.TablerService _tablerService;
+@inject TabBlazor.Services.IModalService _modalService;
+
+<Table Item="ItemWrapper<TKey,TValue>" Items="_wrappedItems" PageSize="@MaxAmount" AddItemFactory="AddItem" OnItemEdited="OnItemEdit" OnItemAdded="OnItemAdd" Hover Responsive ShowHeader="false" ShowTableHeader="false">
+    
+    <ChildContent>
+        <Column Item="ItemWrapper<TKey, TValue>" Property="e=>e.Key" Title="@Title.Singularize()">
+            <Template>
+                <p>@context.Key</p>
+            </Template>
+        </Column>
+        <Column Item="ItemWrapper<TKey, TValue>" Property="e=>e.Value" Title="@Title.Singularize()">
+            <Template>
+                <p>@context.Value</p>
+            </Template>
+        </Column>
+
+        <Column Item="ItemWrapper<TKey, TValue>" Title="" ActionColumn Width="28px">
+            <Template>
+                <span @onclick="(() => OnItemEdit(context))" @onclick:stopPropagation class="edit-icon">
+                    <Icon Size="18" Elements="@Icons.Pencil"/>
+                </span>
+            </Template>
+        </Column>
+        <Column Item="ItemWrapper<TKey, TValue>" Title="" ActionColumn Width="28px">
+            <Template>
+                <span @onclick="(() => OnItemDelete(context))" @onclick:stopPropagation class="delete-icon">
+                    <Icon Size="18" Elements="@Icons.Trash"/>
+                </span>
+            </Template>
+        </Column>
+    </ChildContent>
+
+</Table>

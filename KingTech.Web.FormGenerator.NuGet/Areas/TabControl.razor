@@ -1,0 +1,17 @@
+﻿@using Microsoft.AspNetCore.Mvc
+<CascadingValue Value="this">
+    <div class="btn-group" role="group">
+        @foreach (TabPage tabPage in Pages)
+        {
+            @if (!HideSection(tabPage.DataType, VisibilityMode))
+            {
+                <button type="button"
+                        class="btn @GetButtonClass(tabPage)"
+                        @onclick=@(() => ActivatePage(tabPage))>
+                    @tabPage.Title
+                </button>
+            }
+        }
+    </div>
+    @ChildContent
+</CascadingValue>

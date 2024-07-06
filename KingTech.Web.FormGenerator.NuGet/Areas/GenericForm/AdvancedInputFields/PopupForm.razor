@@ -1,0 +1,66 @@
+﻿@using KingTech.Web.FormGenerator.Data
+@using Humanizer
+@typeparam TModel
+@using Humanizer
+@inject GenericFormService GenericFormService
+@inject IModalService _modalService
+
+@if (IsPrimitive())
+{
+    <input type="text" class="form-control" @bind-value="@Item"/>
+    <button class="btn btn-secondary" type="button" @onclick="Cancel">Cancel</button>
+    <button class="btn btn-primary" type="button"  @onclick="PopupFormSubmitted">Save</button>
+}
+else
+{
+    <EditForm Model="Item" OnSubmit="@PopupFormSubmitted">
+        <DataAnnotationsValidator/>
+        <ValidationSummary/>
+        <fieldset>
+            <GenericFormFields Model="Item">
+
+                <FieldTemplate Context="field">
+                    @if (field.PropertyType == typeof(bool))
+                    {
+                        <div class="form-group row">
+                            <div class="form-check">
+                                @field.EditorTemplate
+                                <label for="@field.EditorId" class="form-check-label">
+                                    @field.DisplayName.Humanize() 
+                                    @if (!string.IsNullOrWhiteSpace(field.Description))
+                                    {
+                                        <Tooltip Text="@field.Description">
+                                            <Icon Elements="@Icons.Icons.Info_circle" Size="16"></Icon>
+                                        </Tooltip>
+                                    }
+                                </label>
+                            </div>
+                            @field.FieldValidationTemplate
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group row">
+                            <label for="@field.EditorId">
+                                @field.DisplayName.Humanize() 
+                                @if (!string.IsNullOrWhiteSpace(field.Description))
+                                {
+                                    <Tooltip Text="@field.Description">
+                                        <Icon Elements="@Icons.Icons.Info_circle" Size="17"></Icon>
+                                    </Tooltip>
+                                }
+                                :
+                            </label>
+                            @field.EditorTemplate
+                            @field.FieldValidationTemplate
+                        </div>
+                    }
+                </FieldTemplate>
+
+            </GenericFormFields>
+
+            <button class="btn btn-secondary" type="button" @onclick="Cancel">Cancel</button>
+            <button class="btn btn-primary" type="submit">Save</button>
+        </fieldset>
+    </EditForm>
+}

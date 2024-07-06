@@ -1,0 +1,150 @@
+﻿@page "/"
+
+<PageTitle>Overview</PageTitle>
+
+<h1>KingTech Blazor FormGenerator</h1>
+
+The KingTech Blazor FormGenerator allows backend developers to generate HTML forms based on C# (data) classes.<br />
+For the full source code and example projects, check out <a href="https://github.com/KingTechNL/KingTech.Web.FormGenerator">https://github.com/KingTechNL/KingTech.Web.FormGenerator</a>.
+<br />
+<br />
+<br />
+
+<h2>Getting Started.</h2>
+
+This project contains multiple examples of generated html forms including their source class.
+
+In order to add generated HTML forms to your blazor project, simply include the <a href="https://www.nuget.org/packages/KingTech.Web.FormGenerator/">KingTech.Web.FormGenerator</a> package and add the following line to your <b><i>program.cs</i></b>.
+
+<pre>
+    <code>
+        builder.Services.AddGenericFormService();
+    </code>
+</pre>
+
+When using complex types (objects), the HTML form will use a popup with a sub-form for editting this type. In order to enable these popups, 
+the following line needs to be added to the start of your <b><i>MainLayout.razor</i></b> file: <code>&#10094;ModalContainer /&#10095;</code>.
+The file will look something like this:
+
+<pre>
+    <code>
+        &commat;using TabBlazor
+        &commat;inherits LayoutComponentBase
+
+        &#10094;ModalContainer /&#10095;
+
+        &#10094;div class="page"&#10095;
+            &#10094;div class="sidebar"&#10095;
+                &#10094;NavMenu /&#10095;
+            &#10094;div&#10095;
+        ...
+    </code>
+</pre>
+
+Now you can to use the <code>&#10094;GenericForm&#10095;</code> Razor component to generate forms based on backend (C#) classes.
+
+<br />
+<br />
+<br />
+<h2>Generating forms</h2>
+
+In order to generate a form based on your C# class, simply use the <code>&#10094;GenericForm&#10095;</code> component in your Razor page.
+This component takes the following arguments:
+
+<table class="table">
+    <tr>
+        <th scope="col">Property</th>
+        <th scope="col">Description</th>
+        <th scope="col">Example</th>
+    </tr>
+    <tr>
+        <th scope ="row">Data</th>
+        <td>The variable (C# property) that is managed using this form</td>
+        <td>Data="ContactFormData"</td>
+    </tr>
+    <tr>
+        <th scope ="row">OnSubmitAsync</th>
+        <td>Asynchronous method to invoke when form is submitted. Method should result in a list of error messages (or an empty list if no errors are encountered).</td>
+        <td>OnSubmitAsync="SubmitForm"</td>
+    </tr>
+    <tr>
+        <th scope="row">OnSubmit</th>
+        <td>Synchronous method to invoke when form is submitted. Method should result in a list of error messages (or an empty list if no errors are encountered).</td>
+        <td>OnSubmitAsync="SubmitForm"</td>
+    </tr>
+</table>
+
+
+<br />
+<br />
+<h3>Enriching your forms</h3>
+
+To enrich your form, you can add attibutes to your C# class. These attributes will be used to add descriptions, tooltips, visibility levels and more to the generated forms.
+
+<br />
+The first attribute that is made available, is the <code>FormInfo</code> attribute. 
+This attribute is applied to the C# class and adds general information to the generated form. 
+Arguments that can be added to the <code>FormInfo</code> attribute are:
+
+<table class="table">
+    <tr>
+        <th scope="col">Argument</th>
+        <th scope="col">Description</th>
+        <th scope="col">Example</th>
+    </tr>
+    <tr>
+        <th scope="row">description</th>
+        <td>The description (title) that is added at the top of the form.</td>
+        <td>"Let us know what your think!"</td>
+    </tr>
+    <tr>
+        <th scope="row">mode</th>
+        <td>The visibility mode that is required for this form to appear. Options are: Basic, Advanced, Never. The minimal level for which forms and fields are generated can be set using the FormService object.</td>
+        <td>EVisibilityMode.Advanced</td>
+    </tr>
+    <tr>
+        <th scope="row">skip</th>
+        <td>If set, this section will be ignored by the FormGenerator. This is mainly used for sub-forms.</td>
+        <td>false</td>
+    </tr>
+</table>
+
+
+<br />
+Each individual property in the class for which a form is generated, can be enriched using the <code>FormFieldInfo</code> attribute. 
+This attribute is applied to the individual properties and adds specific information for the field that is generated.
+Arguments that can be added to the <code>FormFieldInfo</code> attribute are:
+
+<table class="table">
+    <tr>
+        <th scope="col">Argument</th>
+        <th scope="col">Description</th>
+        <th scope="col">Example</th>
+    </tr>
+    <tr>
+        <th scope="row">description</th>
+        <td>The description (label) that is added to the generated field.</td>
+        <td>"Full name"</td>
+    </tr>
+    <tr>
+        <th scope="row">mode</th>
+        <td>The visibility mode that is required for this field to appear. Options are: Basic, Advanced, Never. The minimal level for which forms and fields are generated can be set using the FormService object.</td>
+        <td>EVisibilityMode.Advanced</td>
+    </tr>
+    <tr>
+        <th scope="row">Example</th>
+        <td>The placeholder that is shown in the field if this is empty.</td>
+        <td>"John Doe"</td>
+    </tr>
+    <tr>
+        <th scope="row">CustomCssClasses</th>
+        <td>Using this attribute, custom CSS classes can be added to the generated fields.</td>
+        <td>"my-class"</td>
+    </tr>
+</table>
+
+<br />
+The <code>ReadOnlyField</code> attribute can be used to prevent users from editting fields. This can be used to, for example, prevent users from modifying primary fields or fields that are managed by the system itself.
+
+<br />
+Finally, some specific DataTypes in the <a href="https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations.datatypeattribute?view=net-8.0"><code>System.ComponentModel.DataAnnotations.DataTypeAttribute</code></a> attribute are supported to, for example, prevent users from inputting invalid e-mail adresses.
