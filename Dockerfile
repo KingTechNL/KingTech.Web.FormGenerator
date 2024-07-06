@@ -1,6 +1,7 @@
 #Dockerfile for kingtech frontoffice image
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS base
+RUN apk --no-cache add curl icu-libs libcap bash
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
