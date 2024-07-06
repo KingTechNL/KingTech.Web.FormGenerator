@@ -50,8 +50,8 @@ Now you can to use the <code>&#10094;GenericForm&#10095;</code> Razor component 
 
 In order to generate a form based on your C# class, simply use the <code>&#10094;GenericForm&#10095;</code> component in your Razor page.
 This component takes the following arguments:
-
-<table class="table">
+s
+<table class="table" style="width:75%">
     <tr>
         <th scope="col">Property</th>
         <th scope="col">Description</th>
@@ -60,17 +60,17 @@ This component takes the following arguments:
     <tr>
         <th scope ="row">Data</th>
         <td>The variable (C# property) that is managed using this form</td>
-        <td>Data="ContactFormData"</td>
+        <td>"ContactFormData"</td>
     </tr>
     <tr>
         <th scope ="row">OnSubmitAsync</th>
         <td>Asynchronous method to invoke when form is submitted. Method should result in a list of error messages (or an empty list if no errors are encountered).</td>
-        <td>OnSubmitAsync="SubmitForm"</td>
+        <td>"SubmitForm"</td>
     </tr>
     <tr>
         <th scope="row">OnSubmit</th>
         <td>Synchronous method to invoke when form is submitted. Method should result in a list of error messages (or an empty list if no errors are encountered).</td>
-        <td>OnSubmitAsync="SubmitForm"</td>
+        <td>"SubmitForm"</td>
     </tr>
 </table>
 
@@ -86,7 +86,7 @@ The first attribute that is made available, is the <code>FormInfo</code> attribu
 This attribute is applied to the C# class and adds general information to the generated form. 
 Arguments that can be added to the <code>FormInfo</code> attribute are:
 
-<table class="table">
+<table class="table" style="width:75%">
     <tr>
         <th scope="col">Argument</th>
         <th scope="col">Description</th>
@@ -115,7 +115,7 @@ Each individual property in the class for which a form is generated, can be enri
 This attribute is applied to the individual properties and adds specific information for the field that is generated.
 Arguments that can be added to the <code>FormFieldInfo</code> attribute are:
 
-<table class="table">
+<table class="table" style="width:75%">
     <tr>
         <th scope="col">Argument</th>
         <th scope="col">Description</th>
