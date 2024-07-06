@@ -7,7 +7,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["KingTech.Web.FormGenerator.Example/KingTech.Web.FormGenerator.Example.csproj", "KingTech.Web.FrontOffice/"]
+COPY ["KingTech.Web.FormGenerator.Example/KingTech.Web.FormGenerator.Example.csproj", "KingTech.Web.FormGenerator.Example/"]
 RUN dotnet restore "KingTech.Web.FormGenerator.Example/KingTech.Web.FormGenerator.Example.csproj"
 COPY  ["KingTech.Web.FormGenerator.Example/", "KingTech.Web.FormGenerator.Example/"]
 WORKDIR "/src/KingTech.Web.FormGenerator.Example"
