@@ -3,20 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KingTech.Web.FormGenerator.Abstract.NuGet", "KingTech.Web.FormGenerator.Abstract.NuGet\KingTech.Web.FormGenerator.Abstract.NuGet.csproj", "{AD5339D1-D47F-4E05-AC2E-D78C4E75376F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KingTech.Web.FormGenerator.NuGet", "KingTech.Web.FormGenerator.NuGet\KingTech.Web.FormGenerator.NuGet.csproj", "{313759AB-C59B-4CF2-8FDB-B32C921730CB}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{91C1A904-7F02-4731-8CC5-8D3E55AAD8FB}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
-		Dockerfile_FormGenerator_Example = Dockerfile_FormGenerator_Example
+		Dockerfile = Dockerfile
 		.github\workflows\dotnet_build.yml = .github\workflows\dotnet_build.yml
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KingTech.Web.FormGenerator.Example", "KingTech.Web.FormGenerator.Example\KingTech.Web.FormGenerator.Example.csproj", "{C8C22425-E2C0-4B0F-9E5B-E5FEEC3F1E50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KingTech.Web.FormGenerator.Abstract.NuGet", "KingTech.Web.FormGenerator.Abstract.NuGet\KingTech.Web.FormGenerator.Abstract.NuGet.csproj", "{8DF49467-E3D9-439F-BD5E-8EEA12A1E4B2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KingTech.Web.FormGenerator.NuGet", "KingTech.Web.FormGenerator.NuGet\KingTech.Web.FormGenerator.NuGet.csproj", "{DE5F814F-4AF5-47A4-B425-F9759036C5DA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KingTech.Web.FormGenerator.Example", "KingTech.Web.FormGenerator.Example\KingTech.Web.FormGenerator.Example.csproj", "{B35646F7-9C23-4656-B6B5-A1022453DC5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,40 +24,21 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AD5339D1-D47F-4E05-AC2E-D78C4E75376F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AD5339D1-D47F-4E05-AC2E-D78C4E75376F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AD5339D1-D47F-4E05-AC2E-D78C4E75376F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AD5339D1-D47F-4E05-AC2E-D78C4E75376F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{313759AB-C59B-4CF2-8FDB-B32C921730CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{313759AB-C59B-4CF2-8FDB-B32C921730CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{313759AB-C59B-4CF2-8FDB-B32C921730CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{313759AB-C59B-4CF2-8FDB-B32C921730CB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F8A5A1BE-1079-43DE-A80D-F03CDA3AF66F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F8A5A1BE-1079-43DE-A80D-F03CDA3AF66F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F8A5A1BE-1079-43DE-A80D-F03CDA3AF66F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F8A5A1BE-1079-43DE-A80D-F03CDA3AF66F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6C719187-6652-4942-9CDF-DF6AABC9DB85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6C719187-6652-4942-9CDF-DF6AABC9DB85}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6C719187-6652-4942-9CDF-DF6AABC9DB85}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6C719187-6652-4942-9CDF-DF6AABC9DB85}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C8C22425-E2C0-4B0F-9E5B-E5FEEC3F1E50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C8C22425-E2C0-4B0F-9E5B-E5FEEC3F1E50}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C8C22425-E2C0-4B0F-9E5B-E5FEEC3F1E50}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C8C22425-E2C0-4B0F-9E5B-E5FEEC3F1E50}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3001ABFA-0939-44CA-82CF-8BB5297CE486}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3001ABFA-0939-44CA-82CF-8BB5297CE486}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3001ABFA-0939-44CA-82CF-8BB5297CE486}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3001ABFA-0939-44CA-82CF-8BB5297CE486}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DF49467-E3D9-439F-BD5E-8EEA12A1E4B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DF49467-E3D9-439F-BD5E-8EEA12A1E4B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DF49467-E3D9-439F-BD5E-8EEA12A1E4B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DF49467-E3D9-439F-BD5E-8EEA12A1E4B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE5F814F-4AF5-47A4-B425-F9759036C5DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE5F814F-4AF5-47A4-B425-F9759036C5DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE5F814F-4AF5-47A4-B425-F9759036C5DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE5F814F-4AF5-47A4-B425-F9759036C5DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B35646F7-9C23-4656-B6B5-A1022453DC5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B35646F7-9C23-4656-B6B5-A1022453DC5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B35646F7-9C23-4656-B6B5-A1022453DC5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B35646F7-9C23-4656-B6B5-A1022453DC5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{AD5339D1-D47F-4E05-AC2E-D78C4E75376F} = {9BEF2AFB-216A-4C83-BD64-621684201C78}
-		{313759AB-C59B-4CF2-8FDB-B32C921730CB} = {9BEF2AFB-216A-4C83-BD64-621684201C78}
-		{6C719187-6652-4942-9CDF-DF6AABC9DB85} = {59FF478C-B6B0-4E86-9E96-4844B792AAE8}
-		{C8C22425-E2C0-4B0F-9E5B-E5FEEC3F1E50} = {9BEF2AFB-216A-4C83-BD64-621684201C78}
-		{3001ABFA-0939-44CA-82CF-8BB5297CE486} = {59FF478C-B6B0-4E86-9E96-4844B792AAE8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C1670FA6-6BEF-479C-A8B5-A418D39BC228}

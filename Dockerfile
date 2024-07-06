@@ -1,13 +1,23 @@
 #Dockerfile for kingtech frontoffice image
 
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS base
+RUN apk --no-cache add curl icu-libs libcap bash
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["KingTech.Web.FormGenerator.Example/KingTech.Web.FormGenerator.Example.csproj", "KingTech.Web.FrontOffice/"]
+
+COPY ["KingTech.Web.FormGenerator.Abstract.NuGet/KingTech.Web.FormGenerator.Abstract.NuGet.csproj", "KingTech.Web.FormGenerator.Abstract.NuGet/"]
+RUN dotnet restore "KingTech.Web.FormGenerator.Abstract.NuGet/KingTech.Web.FormGenerator.Abstract.NuGet.csproj"
+COPY  ["KingTech.Web.FormGenerator.Abstract.NuGet/", "KingTech.Web.FormGenerator.Abstract.NuGet/"]
+
+COPY ["KingTech.Web.FormGenerator.NuGet/KingTech.Web.FormGenerator.NuGet.csproj", "KingTech.Web.FormGenerator.NuGet/"]
+RUN dotnet restore "KingTech.Web.FormGenerator.NuGet/KingTech.Web.FormGenerator.NuGet.csproj"
+COPY  ["KingTech.Web.FormGenerator.NuGet/", "KingTech.Web.FormGenerator.NuGet/"]
+
+COPY ["KingTech.Web.FormGenerator.Example/KingTech.Web.FormGenerator.Example.csproj", "KingTech.Web.FormGenerator.Example/"]
 RUN dotnet restore "KingTech.Web.FormGenerator.Example/KingTech.Web.FormGenerator.Example.csproj"
 COPY  ["KingTech.Web.FormGenerator.Example/", "KingTech.Web.FormGenerator.Example/"]
 WORKDIR "/src/KingTech.Web.FormGenerator.Example"
