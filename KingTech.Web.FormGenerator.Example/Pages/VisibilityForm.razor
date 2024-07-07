@@ -63,7 +63,16 @@ The visibility mode can be change with button below:
         return new List<string>();
     }
 
-    internal void ToggleVisibility() => GenericFormService.SetVisibilityMode(AdvancedMode ? EVisibilityMode.Advanced : EVisibilityMode.Basic);
+    /// <summary>
+    /// Set the visibility mode on the FormService.
+    /// </summary>
+    internal async void ToggleVisibility()
+    {
+        await InvokeAsync(() =>
+        {
+            GenericFormService.SetVisibilityMode(AdvancedMode ? EVisibilityMode.Advanced : EVisibilityMode.Basic);
+        });
+    }
 
     /// <summary>
     /// This method is called upon page load.
