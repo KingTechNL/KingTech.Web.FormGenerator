@@ -48,6 +48,7 @@ public class GenericFormService
     {
         Setup.SetupType = visibilityMode;
         _logger?.LogDebug("VisibilityMode set to {visibility}", Setup.SetupType.ToString());
+        
         VisibilityModeChanged?.Invoke(Setup.SetupType);
     }
 

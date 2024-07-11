@@ -147,4 +147,10 @@ Arguments that can be added to the <code>FormFieldInfo</code> attribute are:
 The <code>ReadOnlyField</code> attribute can be used to prevent users from editting fields. This can be used to, for example, prevent users from modifying primary fields or fields that are managed by the system itself.
 
 <br />
+The <code>BigField</code> attribute is used to generate bigger input fields for some data types (e.g. textarea instead of text).
+
+<br/>
+The <code>DependsOn</code> attribute is used to define dependencies between form fields. It can for example be used to hide one or more fields if a specific checkbox (boolean field) is not checked.
+
+<br />
 Finally, some specific DataTypes in the <a href="https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations.datatypeattribute?view=net-8.0"><code>System.ComponentModel.DataAnnotations.DataTypeAttribute</code></a> attribute are supported to, for example, prevent users from inputting invalid e-mail adresses.

@@ -8,8 +8,9 @@
 
     <EmbeddedResourceUseDependentUponConvention>false</EmbeddedResourceUseDependentUponConvention>
     <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
-    <RootNamespace>$(MSBuildProjectName.Replace(" ", "_").Replace(".NuGet",""))</RootNamespace>
-	<PackageId>$(MSBuildProjectName.Replace(" ", "_").Replace(".NuGet",""))</PackageId>
+	  <RootNamespace>$(MSBuildProjectName.Replace(" ", "_").Replace(".NuGet",""))</RootNamespace>
+	  <AssemblyName>$(MSBuildProjectName.Replace(" ", "_").Replace(".NuGet",""))</AssemblyName>
+	  <PackageId>$(MSBuildProjectName.Replace(" ", "_").Replace(".NuGet",""))</PackageId>
   </PropertyGroup>
 
   <ItemGroup>

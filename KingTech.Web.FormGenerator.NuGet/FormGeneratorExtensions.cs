@@ -24,8 +24,7 @@ public static class FormGeneratorExtensions
 
         services.AddRazorPages();
         services.AddServerSideBlazor();
-        services.AddSingleton<GenericFormService>();
-        //services.ConfigureOptions(typeof(FormSettings));
+        services.AddScoped<GenericFormService>();
         services.AddTabler();
         services.AddBlazoredModal();
     }

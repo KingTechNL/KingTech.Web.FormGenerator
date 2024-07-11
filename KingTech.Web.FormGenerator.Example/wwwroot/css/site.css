@@ -1,7 +1,17 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
+:root[b-9nkq4tbx9h] {
+    --kingtech-blue: #64B1DB;
+    --kingtech-green: #AAD200;
+    --kingtech-orange: #FF8C00; /*#F1A02C;*/
+}
+
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.sidebar[b-9nkq4tbx9h] { /*KingTech color scheme*/
+    background-image: linear-gradient(180deg, #64B1DB 0%, #AAD200 70%)!important;
 }
 
 h1:focus {
