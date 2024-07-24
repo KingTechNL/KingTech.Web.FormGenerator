@@ -1,4 +1,4 @@
-#Dockerfile for kingtech frontoffice image
+#Dockerfile for kingtech FormGenerator documentation (example) image
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS base
 RUN apk --no-cache add curl icu-libs libcap bash
@@ -6,7 +6,7 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
 WORKDIR /src
 
 COPY ["KingTech.Web.FormGenerator.Abstract.NuGet/KingTech.Web.FormGenerator.Abstract.NuGet.csproj", "KingTech.Web.FormGenerator.Abstract.NuGet/"]
