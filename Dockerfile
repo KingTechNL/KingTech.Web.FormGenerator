@@ -6,25 +6,25 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
 WORKDIR /src
 
 COPY ["KingTech.Web.FormGenerator.Abstract.NuGet/KingTech.Web.FormGenerator.Abstract.NuGet.csproj", "KingTech.Web.FormGenerator.Abstract.NuGet/"]
-RUN dotnet restore -a $TARGETARCH "KingTech.Web.FormGenerator.Abstract.NuGet/KingTech.Web.FormGenerator.Abstract.NuGet.csproj"
+RUN dotnet restore "KingTech.Web.FormGenerator.Abstract.NuGet/KingTech.Web.FormGenerator.Abstract.NuGet.csproj" -a $TARGETARCH 
 COPY  ["KingTech.Web.FormGenerator.Abstract.NuGet/", "KingTech.Web.FormGenerator.Abstract.NuGet/"]
 
 COPY ["KingTech.Web.FormGenerator.NuGet/KingTech.Web.FormGenerator.NuGet.csproj", "KingTech.Web.FormGenerator.NuGet/"]
-RUN dotnet restore -a $TARGETARCH "KingTech.Web.FormGenerator.NuGet/KingTech.Web.FormGenerator.NuGet.csproj"
+RUN dotnet restore "KingTech.Web.FormGenerator.NuGet/KingTech.Web.FormGenerator.NuGet.csproj" -a $TARGETARCH 
 COPY  ["KingTech.Web.FormGenerator.NuGet/", "KingTech.Web.FormGenerator.NuGet/"]
 
 COPY ["KingTech.Web.FormGenerator.Example/KingTech.Web.FormGenerator.Example.csproj", "KingTech.Web.FormGenerator.Example/"]
-RUN dotnet restore -a $TARGETARCH "KingTech.Web.FormGenerator.Example/KingTech.Web.FormGenerator.Example.csproj"
+RUN dotnet restore "KingTech.Web.FormGenerator.Example/KingTech.Web.FormGenerator.Example.csproj" -a $TARGETARCH 
 COPY  ["KingTech.Web.FormGenerator.Example/", "KingTech.Web.FormGenerator.Example/"]
 WORKDIR "/src/KingTech.Web.FormGenerator.Example"
 RUN dotnet build "KingTech.Web.FormGenerator.Example.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "KingTech.Web.FormGenerator.Example.csproj" -c Release -o /app/publish
+RUN dotnet publish "KingTech.Web.FormGenerator.Example.csproj" -c Release -a $TARGETARCH --no-restore -o /app/publish
 
 FROM base AS final
 WORKDIR /app
