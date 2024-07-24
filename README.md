@@ -12,6 +12,8 @@
 The KingTech FormGenerator NuGet, based on the [Meziantou framework](https://github.com/meziantou/Meziantou.Framework/blob/main/src/Meziantou.AspNetCore.Components/GenericForm.razor), allows us to easily generate html forms based on the passed model type.
 Forms are generated based on the public properties of a model. This can be enhanced by adding special annotations on top of the model and properties. These annotations provide the generated forms with information to show in placeholders and info popups.
 
+The KingTech.Web.FormGenerator.Abstract NuGet package is added to allow 'external' libraries/project to add the annotations used to generate forms to their classes.
+
 [TabBlazor](https://tabblazor.com/) Tables and Modals are used to generate forms for more complex types like Lists/Dictionaries and custom objects.
 
 A full documentation website, including examples, can be found at [formgenerator.kingtech.nl](formgenerator.kingtech.nl).
